@@ -72,6 +72,8 @@ export default class JSONTree extends React.Component {
       labelRenderer,
       valueRenderer,
       keyPath,
+      keyName: key,
+      nodeExpanded,
       previousData,
       theme
     } = this.props;
@@ -88,8 +90,10 @@ export default class JSONTree extends React.Component {
         styles: getStyles,
         theme,
         labelRenderer,
+        nodeExpanded,
         value,
-        valueRenderer
+        valueRenderer,
+        level: 0
       });
     } else {
       nodeToRender = getChildNodes({
@@ -97,11 +101,13 @@ export default class JSONTree extends React.Component {
         getItemString,
         labelRenderer,
         previousData,
-        styles: getStyles,
+        keyPath: [],
+        nodeExpanded,
+        styles:getStyles,
         theme,
         valueRenderer,
         allExpanded,
-        keyPath: []
+        level: 1
       });
     }
 

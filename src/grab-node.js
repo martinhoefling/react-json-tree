@@ -11,6 +11,8 @@ export default function({
   allExpanded,
   keyPath,
   labelRenderer,
+  level,
+  nodeExpanded,
   previousData,
   styles,
   theme,
@@ -38,7 +40,10 @@ export default function({
     data: value,
     initialExpanded,
     allExpanded,
-    keyPath
+    keyPath,
+    keyName: key,
+    nodeExpanded,
+    level
   };
 
   switch (nodeType) {

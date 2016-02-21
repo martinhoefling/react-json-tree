@@ -32,8 +32,10 @@ const styles = {
 export default class JSONNestedNode extends React.Component {
   defaultProps = {
     data: [],
+    nodeExpanded: false,
     initialExpanded: false,
-    allExpanded: false
+    allExpanded: false,
+    level: 0
   };
 
   // cache store for the number of items string we display
@@ -47,8 +49,12 @@ export default class JSONNestedNode extends React.Component {
 
   constructor(props) {
     super(props);
+
+    // calculate individual node expansion if necessary
+    var nodeExpanded = this.props.nodeExpanded ?
+        this.props.nodeExpanded(this.props.keyName, this.props.data, this.props.level) : false;
     this.state = {
-      expanded: this.props.initialExpanded || this.props.allExpanded,
+      expanded: this.props.initialExpanded || this.props.allExpanded || nodeExpanded,
       createdChildNodes: false
     };
   }
@@ -77,8 +83,10 @@ export default class JSONNestedNode extends React.Component {
 
     if (this.state.expanded && this.needsChildNodes) {
       this.needsChildNodes = false;
+      var props = Object.assign({}, this.props);
+      props.level +=1;
       this.renderedChildren = this.props.getChildNodes({
-        ...this.props
+        ...props
       });
     }
 
